@@ -1,0 +1,31 @@
+<?php
+    /*
+    * Step 2
+    * 
+    * Choix des langues
+    *
+    * Input  : module : Nom du module
+    *
+    * Output : from   : Langue source
+    *          to     : Langue cible
+    *          modules : Nom des modules
+    */
+    if(isset($_POST['modules'])){
+      //Query on enable languages
+      $sql = 'SELECT * FROM `'.$xoopsDB->prefix('lt_languages').'`';
+  	  $rows=getSqlResults($xoopsDB, $sql);
+
+      $content .= '<input type="hidden" alt="step" name="step" value="3">';
+      $content .= '<input type="hidden" name="module" value="'.$_POST['module'].'"/>';
+      $content .= _MD_LANG_TOOL_SESELECTLANG.'<br/>';
+     
+      $lng_from = isset($_POST['from'])?$_POST['from']:'';
+      $lng_to = isset($_POST['to'])?$_POST['to']:'';
+	  $content .= _MD_LANG_TOOL_FROM.'&nbsp;'.drawSelect($rows, 'from', 'dirname', 'lang_title', $lng_from);
+      $content .= '&nbsp;'._MD_LANG_TOOL_TO.'&nbsp;'.drawSelect($rows, 'to', 'dirname', 'lang_title', $lng_to);
+      $content .= '<br/><hr/><input type="submit" value="'._MD_LANG_TOOL_NEXT.'" alt="'._MD_LANG_TOOL_NEXT.'">';
+    }else{
+      //Erreur de session
+      $content .= '<p>'._MD_LANG_TOOL_ERRORPOST.'</p>';
+    }
+?>

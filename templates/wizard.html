@@ -1,0 +1,28 @@
+<script language='javascript'>
+function goto_step(val){
+  document.forms.gotostep.step.value=val;
+  document.forms.gotostep.submit();
+  return true;
+}
+
+function CheckAll(myform, prefix) {
+ for (var i=0; i<myform.elements.length; i++) {
+  if ((myform.elements[i].type == 'checkbox') && (myform.elements[i].name.substring(0,prefix.length) == prefix)) {
+   myform.elements[i].checked = !(myform.elements[i].checked);
+  }
+ }
+}
+</script>
+<hr/>
+
+<{$i18n_navig}>
+
+<div id='i18n.menu' class='i18n.menu'>
+  <{$i18n_menu}>
+</div>
+
+<div id='i18n_content' class='i18n.content'>
+<form method='post' name='step_form' action="index.php">
+<{$content}>
+</form>
+</div>
